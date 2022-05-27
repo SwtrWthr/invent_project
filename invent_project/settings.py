@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'invent-project-diploma.herokuapp.com']
 
 
 # Application definition
@@ -108,10 +108,10 @@ WSGI_APPLICATION = 'invent_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'invent',
-        'USER': 'swtrwthr',
-        'PASSWORD': 'Ssss1234',
-        'HOST': 'localhost',
+        'NAME': 'd3b1gl200vs107',
+        'USER': 'mcvgkhcwcpknfs',
+        'PASSWORD': 'fb75b299e145d70edb7cd3392b0efa29b518ab2fd04f84d4bd26839a3fda0cd2',
+        'HOST': 'ec2-34-230-153-41.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
