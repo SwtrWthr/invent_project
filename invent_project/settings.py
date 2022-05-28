@@ -108,10 +108,10 @@ WSGI_APPLICATION = 'invent_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd3b1gl200vs107',
-        'USER': 'mcvgkhcwcpknfs',
-        'PASSWORD': 'fb75b299e145d70edb7cd3392b0efa29b518ab2fd04f84d4bd26839a3fda0cd2',
-        'HOST': 'ec2-34-230-153-41.compute-1.amazonaws.com',
+        'NAME': 'dc4hrp4ae6l9ik',
+        'USER': 'zyrwsydoycvivx',
+        'PASSWORD': 'dd3beae4be666042c7a8f635768c8ce07824397c84710a8c6357c0d70363e5da',
+        'HOST': 'ec2-63-35-156-160.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
