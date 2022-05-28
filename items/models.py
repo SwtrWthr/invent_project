@@ -20,6 +20,7 @@ class Item(models.Model):
   code = models.CharField(max_length=250, null=True, blank=True)
   stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
   rec_price = models.IntegerField(default=0, null=True)
+  category = models.ManyToManyField(ItemCategory, blank=True)
   attrs = models.JSONField()
   received_at = models.DateTimeField(auto_now_add=True)
   
