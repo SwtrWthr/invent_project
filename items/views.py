@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import render
 
 from items.models import Item, ItemCategory, ItemImages
@@ -17,7 +18,7 @@ class ItemViewSet(viewsets.ModelViewSet):
   queryset = Item.objects.all()
   serializer_class = ItemSerializer
   filter_backends = [DjangoFilterBackend, SearchFilter]
-  filterset_fields = ['title', 'sku', 'code', 'stock']
+  filterset_fields = ['title', 'sku', 'code', 'stock', 'category']
   pagination_class = CustomPagination
   
 class ItemCategoryViewSet(viewsets.ModelViewSet):
