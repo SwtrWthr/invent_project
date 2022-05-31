@@ -32,7 +32,7 @@ class Item(models.Model):
 
 class ItemImages(models.Model):
   item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
-  filename = models.CharField(max_length=150)
+  filename = models.ImageField(upload_to="items")
   created_at = models.DateTimeField(auto_now_add=True)
   
   class Meta:
