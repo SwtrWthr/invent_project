@@ -12,6 +12,8 @@ class ItemCategorySerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class ItemSerializer(serializers.ModelSerializer):
+  images = ItemImageSerializer(source='itemimages_set', many=True, read_only=True)
+  category = ItemCategorySerializer(many=True, read_only=True)
   class Meta:
     model = Item
     fields = '__all__'
