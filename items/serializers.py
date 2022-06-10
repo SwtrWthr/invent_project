@@ -4,9 +4,10 @@ from items.models import ItemImages, ItemCategory, Item
 
 class ItemImageSerializer(serializers.ModelSerializer):
   image_url = serializers.ReadOnlyField()
+  image = serializers.FileField()
   class Meta:
     model = ItemImages
-    fields = ["image_url", "image", "created_at", "item_id"]
+    fields = ["id", "image_url", "image", "created_at", "item_id"]
 
   def to_representation(self, instance):
     representation = super().to_representation(instance)
