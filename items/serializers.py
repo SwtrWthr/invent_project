@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from items.models import ItemImage, ItemCategory, Item
+from items.models import ItemImages, ItemCategory, Item
 
 
 class ItemImageSerializer(serializers.ModelSerializer):
   image_url = serializers.ReadOnlyField()
   class Meta:
-    model = ItemImage
+    model = ItemImages
     fields = ["image_url", "image", "created_at", "item"]
 
   def to_representation(self, instance):
