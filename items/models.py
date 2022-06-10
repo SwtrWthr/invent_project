@@ -35,7 +35,7 @@ class Item(models.Model):
 
 
 class ItemImages(models.Model):
-  item = models.ForeignKey(Item, on_delete=models.CASCADE)
+  item_id = models.ForeignKey(Item, on_delete=models.CASCADE, to_field='item_id')
   image = CloudinaryField("image")
   created_at = models.DateTimeField(auto_now_add=True)
 
