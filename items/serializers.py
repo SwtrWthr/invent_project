@@ -6,7 +6,7 @@ class ItemImageSerializer(serializers.ModelSerializer):
   image_url = serializers.ReadOnlyField()
   class Meta:
     model = ItemImages
-    fields = ["image_url", "image", "created_at", "item"]
+    fields = ["image_url", "image", "created_at", "item_id"]
 
   def to_representation(self, instance):
     representation = super().to_representation(instance)
