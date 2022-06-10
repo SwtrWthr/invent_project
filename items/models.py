@@ -14,7 +14,7 @@ class ItemCategory(models.Model):
 
 class Item(models.Model):
   title = models.CharField(max_length=150)
-  description = models.CharField(max_length=512, null=True, blank=True)
+  description = models.CharField(max_length=1024, null=True, blank=True)
   availability = models.IntegerField(default=0)
   sku = models.CharField(max_length=100, null=True)
   code = models.CharField(max_length=250, null=True, blank=True)
