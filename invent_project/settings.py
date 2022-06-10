@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
+import cloudinary
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,11 +109,11 @@ WSGI_APPLICATION = 'invent_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'da84qji76fbfti',
-        'USER': 'znobxoojxilvta',
-        'PASSWORD': '4e69f9352a5588b88f2cae46ed8cc1fb61741c21706554b7412c28de9adb759d',
-        'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432'
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),
+        'PORT': config("DB_PORT")
     }
 }
 
@@ -210,6 +211,12 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(hours=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=3),
 }
+
+cloudinary.config(
+    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
+    api_key=config("CLOUDINARY_API_KEY"),
+    api_secret=config("CLOUDINARY_API_SECRET"),
+)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

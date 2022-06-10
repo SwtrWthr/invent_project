@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import MultiPartParser
 
 
 class CustomPagination(PageNumberPagination):
@@ -27,4 +28,5 @@ class ItemCategoryViewSet(viewsets.ModelViewSet):
   
 class ItemImageViewSet(viewsets.ModelViewSet):
   queryset = ItemImages.objects.all()
+  parser_classes = (MultiPartParser,)
   serializer_class = ItemImageSerializer
