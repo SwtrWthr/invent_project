@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-
 from users.models import Role, User
 from users.serializers import ProfileSerializer, RoleSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated
