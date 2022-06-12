@@ -41,6 +41,7 @@ class LogoutView(APIView):
             token.blacklist()
 
             return Response({ "success": True }, status=status.HTTP_205_RESET_CONTENT)
+          #fuck
         except Exception as e:
             return Response({
               "success": False,
