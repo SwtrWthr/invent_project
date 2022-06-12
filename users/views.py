@@ -41,8 +41,9 @@ class LogoutView(APIView):
             token.blacklist()
 
             return Response({ "success": True }, status=status.HTTP_205_RESET_CONTENT)
+          #fuck
         except Exception as e:
             return Response({
               "success": False,
-              "detail": json.dumps(e)
+              "detail": 'Токен уже в черном списке'
             }, status=status.HTTP_400_BAD_REQUEST)
