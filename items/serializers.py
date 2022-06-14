@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from items.models import ItemImages, ItemCategory, Item
-
+from stocks.serializers import StockSerializer
 
 class ItemImageSerializer(serializers.ModelSerializer):
   image_url = serializers.ReadOnlyField()
@@ -23,10 +23,15 @@ class ItemCategorySerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-  images = ItemImageSerializer(
-    source='itemimages_set', many=True, read_only=True)
+  images = ItemImageSerializer(source='itemimages_set', many=True, read_only=True)
   category = ItemCategorySerializer(many=True, read_only=True)
 
   class Meta:
     model = Item
     fields = '__all__'
+
+class ItemDetailSerializer(serializers.ModelSerializer):
+  stock = StockSerializer(many=False, read_only=True)
+  class Meta:
+    model = Item
+    fields = ['id', 'title', 'description', 'stock']

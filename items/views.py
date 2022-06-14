@@ -1,10 +1,13 @@
+from django.shortcuts import get_object_or_404
 from items.models import Item, ItemCategory, ItemImages
-from items.serializers import ItemCategorySerializer, ItemImageSerializer, ItemSerializer
-from rest_framework import viewsets
+from items.serializers import ItemCategorySerializer, ItemDetailSerializer, ItemImageSerializer, ItemSerializer
+from rest_framework import viewsets, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import MultiPartParser
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from django_filters import CharFilter
 from django_filters import rest_framework as filters
 
@@ -28,6 +31,17 @@ class ItemViewSet(viewsets.ModelViewSet):
   filter_backends = [DjangoFilterBackend, SearchFilter]
   filterset_class = ItemFilter
   pagination_class = CustomPagination
+  
+  @action(detail=True, methods=['GET'], name='Item Detail')
+  def detailed(self, request, pk=None):
+    queryset = get_object_or_404(Item, pk=pk)
+    serializer = ItemDetailSerializer(queryset)
+    
+    # if serializer.is_valid():
+    return Response(serializer.data)
+    # else:
+      # return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+    
   
 class ItemCategoryViewSet(viewsets.ModelViewSet):
   queryset = ItemCategory.objects.all()

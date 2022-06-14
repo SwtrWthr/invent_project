@@ -32,7 +32,7 @@ urlpatterns = [
   path('api/docs', schema_view),
   path('admin/', admin.site.urls),
   path('api/', include(router.urls)),
-  path('api/me/', ProfileViewSet.as_view()),
+  path('api/me/', ProfileViewSet.as_view(), name='current_user'),
   path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
   path('api/logout/', LogoutView.as_view(), name='user_logout'),
