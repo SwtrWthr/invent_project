@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from items.models import Item, ItemCategory, ItemImages
-from items.serializers import ItemCategorySerializer, ItemDetailSerializer, ItemImageSerializer, ItemSerializer
+from items.serializers import CreateItemSerializer, ItemCategorySerializer, ItemDetailSerializer, ItemImageSerializer, ItemSerializer
 from rest_framework import viewsets, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -33,14 +33,21 @@ class ItemViewSet(viewsets.ModelViewSet):
   filterset_class = ItemFilter
   pagination_class = CustomPagination
   
+  def get_serializer_class(self):
+    if self.action == 'create':
+      return CreateItemSerializer
+    if self.action == 'update':
+      return CreateItemSerializer
+    return ItemSerializer
+  
   @action(detail=True, methods=['GET'], name='Item Detail')
   def detailed(self, request, pk=None):
-    # try:
-    #   item = Item.objects.get(code=pk)
-    # except Item.DoesNotExist:
-    #   raise Http404
-    queryset = get_object_or_404(Item, pk=pk)
-    serializer = ItemDetailSerializer(queryset)
+    try:
+      item = Item.objects.get(pk=pk)
+    except Exception:
+      raise Http404
+    # queryset = get_object_or_404(Item, pk=pk)
+    serializer = ItemDetailSerializer(item)
     
     # if serializer.is_valid():
     return Response(serializer.data)

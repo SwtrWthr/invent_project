@@ -7,7 +7,7 @@ class ItemImageSerializer(serializers.ModelSerializer):
   image = serializers.FileField()
   class Meta:
     model = ItemImages
-    fields = ["id", "image_url", "image", "created_at", "item_id"]
+    fields = ["id", "image_url", "image", "created_at", "item"]
 
   def to_representation(self, instance):
     representation = super().to_representation(instance)
@@ -26,6 +26,11 @@ class ItemSerializer(serializers.ModelSerializer):
   images = ItemImageSerializer(source='itemimages_set', many=True, read_only=True)
   category = ItemCategorySerializer(many=True, read_only=True)
 
+  class Meta:
+    model = Item
+    fields = '__all__'
+    
+class CreateItemSerializer(serializers.ModelSerializer):
   class Meta:
     model = Item
     fields = '__all__'

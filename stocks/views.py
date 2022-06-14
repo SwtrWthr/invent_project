@@ -26,4 +26,4 @@ class UserStocksViewSet(viewsets.ModelViewSet):
 class StockTypeViewSet(viewsets.ModelViewSet):
   queryset = StockType.objects.all()
   serializer_class = StockTypeSerializer
-  permission_classes = (IsAuthenticated, )
+  # permission_classes = (IsAuthenticated, )

@@ -11,7 +11,7 @@ class StockTypeSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
   # managers = serializers.StringRelatedField(many=True)
   managers = UserSerializer(many=True, read_only=True).data
-  type = StockTypeSerializer(many=False, read_only=True)
+  type = StockTypeSerializer(many=False, read_only=True).data
   class Meta:
     model = Stock
     fields = '__all__'
