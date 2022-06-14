@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from stocks.models import Stock
 from cloudinary.models import CloudinaryField
@@ -16,6 +17,7 @@ class ItemCategory(models.Model):
 
 
 class Item(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   title = models.CharField(max_length=150)
   description = models.CharField(max_length=1024, null=True, blank=True)
   availability = models.IntegerField(default=0)
