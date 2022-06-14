@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from items.models import Item, ItemCategory, ItemImages
 from items.serializers import ItemCategorySerializer, ItemDetailSerializer, ItemImageSerializer, ItemSerializer
@@ -34,6 +35,10 @@ class ItemViewSet(viewsets.ModelViewSet):
   
   @action(detail=True, methods=['GET'], name='Item Detail')
   def detailed(self, request, pk=None):
+    # try:
+    #   item = Item.objects.get(code=pk)
+    # except Item.DoesNotExist:
+    #   raise Http404
     queryset = get_object_or_404(Item, pk=pk)
     serializer = ItemDetailSerializer(queryset)
     

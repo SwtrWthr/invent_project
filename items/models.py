@@ -1,3 +1,4 @@
+from email.policy import default
 import uuid
 from django.db import models
 from stocks.models import Stock
@@ -17,11 +18,12 @@ class ItemCategory(models.Model):
 
 
 class Item(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   title = models.CharField(max_length=150)
   description = models.CharField(max_length=1024, null=True, blank=True)
   availability = models.IntegerField(default=0)
   sku = models.CharField(max_length=100, null=True)
-  code = models.UUIDField(unique=True, default=uuid.uuid4)
+  code = models.CharField(max_length=256, null=True)
   stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
   rec_price = models.IntegerField(default=0, null=True)
   category = models.ManyToManyField(ItemCategory, blank=True)
@@ -36,7 +38,8 @@ class Item(models.Model):
 
 
 class ItemImages(models.Model):
-  item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+  # item = models.ForeignKey(Item, on_delete=models.CASCADE)
+  item = models.ImageField(default=0)
   image = CloudinaryField("image")
   created_at = models.DateTimeField(auto_now_add=True)
 
