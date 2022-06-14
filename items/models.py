@@ -21,7 +21,7 @@ class Item(models.Model):
   description = models.CharField(max_length=1024, null=True, blank=True)
   availability = models.IntegerField(default=0)
   sku = models.CharField(max_length=100, null=True)
-  code = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+  code = models.UUIDField(unique=True, default=uuid.uuid4)
   stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
   rec_price = models.IntegerField(default=0, null=True)
   category = models.ManyToManyField(ItemCategory, blank=True)
