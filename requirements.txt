@@ -32,6 +32,7 @@ pylint==2.13.7
 python-dateutil==2.8.2
 python-decouple==3.6
 pytz==2022.1
+qrcode==7.3.1
 requests==2.27.1
 simplejson==3.17.6
 six==1.16.0

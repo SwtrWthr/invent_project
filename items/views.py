@@ -1,5 +1,4 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from items.models import Item, ItemCategory, ItemImages
 from items.serializers import CreateItemSerializer, ItemCategorySerializer, ItemDetailSerializer, ItemImageSerializer, ItemSerializer
 from rest_framework import viewsets, status
@@ -9,8 +8,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import MultiPartParser
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
 from django_filters import CharFilter
 from django_filters import rest_framework as filters
+
+import cloudinary
+from items.utils import generate_qr_code
 
 
 class CustomPagination(PageNumberPagination):
@@ -39,6 +42,33 @@ class ItemViewSet(viewsets.ModelViewSet):
     if self.action == 'update':
       return CreateItemSerializer
     return ItemSerializer
+  
+  def perform_create(self, serializer):
+    item = serializer.save()
+    
+    try:
+      qr_code = generate_qr_code(item.id)
+      uploaded_image = cloudinary.uploader.upload_resource(qr_code, folder='qr/')
+      created_item = Item.objects.get(pk=item.id)
+      created_item.qr_code = uploaded_image.url
+      created_item.save()
+    except Exception:
+      raise APIException('Товар создан. Но не удалось создать QR code')
+    
+  def perform_update(self, serializer):
+    instance = serializer.save()
+    
+    if not instance.qr_code:
+      try:
+        qr_code = generate_qr_code(instance.id)
+        uploaded_image = cloudinary.uploader.upload_resource(qr_code, folder='qr/')
+        created_item = Item.objects.get(pk=instance.id)
+        created_item.qr_code = uploaded_image.url
+        created_item.save()
+        
+        return Response(created_item, status=status.HTTP_200_OK)
+      except Exception:
+        raise APIException('Не удалось создать QR code')
   
   @action(detail=True, methods=['GET'], name='Item Detail')
   def detailed(self, request, pk=None):

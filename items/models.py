@@ -27,7 +27,9 @@ class Item(models.Model):
   stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
   rec_price = models.IntegerField(default=0, null=True)
   category = models.ManyToManyField(ItemCategory, blank=True)
-  attrs = models.JSONField()
+  attrs = models.JSONField(null=True, blank=True)
+  # qr_code = CloudinaryField('qr_code', null=True, default=None, blank=True)
+  qr_code = models.CharField(max_length=256, blank=True, null=True)
   received_at = models.DateTimeField(auto_now_add=True)
 
   class Meta:
@@ -35,6 +37,12 @@ class Item(models.Model):
 
   def __str__(self):
     return self.title
+  
+  # @property
+  # def qr_url(self):
+  #   return (
+  #     f"https://res.cloudinary.com/djdo3ud0z/qr/{self.qr_code}"
+  #   )
 
 
 class ItemImages(models.Model):
