@@ -61,4 +61,4 @@ class ItemImages(models.Model):
     )
 
   def __str__(self):
-    return self.title
+    return self.image
